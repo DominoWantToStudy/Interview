@@ -38,13 +38,8 @@ b=pd.DataFrame(a)   #array转DataFrame或list转DataFrame，都一样
 b=a.values          #DataFrame转array
 b=a.values.tolist() #DataFrame转list，其实就是先转array再转list
 ```
-### 6.iloc
-
-### 7.groupby
-
-### 8.apply、iloc
-apply就是调用某个函数，同时传入函数所需要的参数  
-iloc就是用于DataFrame切片
+### 6.groupby
+groupby用于对DataFrame根据不同的值进行分类，相当于拆成两个表
 ```Python
 import pandas as pd
 df = pd.DataFrame({'key1':list('aabba'),
@@ -52,17 +47,46 @@ df = pd.DataFrame({'key1':list('aabba'),
                   'data1': np.random.randn(5),
                   'data2': np.random.randn(5)})
 print(df)
-| key1 | key2 | data1 | data2
----- | ----- | ------ |
+  key1  key2  data1  data2
 0	a	one	-1.672143	1.145812
 1	a	two	-0.075998	0.072943
 2	b	one	0.933935	0.618680
 3	b	two	2.080478	-0.664071
 4	a	one	-0.388349	1.283912
+for name ,group in df.groupby(['key1']):
+    print(name)
+    print(group)
+a
+  key1 key2     data1     data2
+0    a  one -1.672143  1.145812
+1    a  two -0.075998  0.072943
+4    a  one -0.388349  1.283912
+b
+  key1 key2     data1     data2
+2    b  one  0.933935  0.618680
+3    b  two  2.080478 -0.664071
+```
+### 7.apply、iloc
+apply就是调用某个函数，同时传入函数所需要的参数  
+iloc就是用于DataFrame切片
+```Python
 print(df.apply(lambda x: x.iloc[2],axis=1))
 0   -1.672143
 1   -0.075998
 2    0.933935
 3    2.080478
 4   -0.388349
+```
+### 8.iterrows
+iterrows用于对DataFrame进行行遍历
+```Python
+for index,row in df[:1].iterrows():
+    print(index)
+    print(row)
+0
+key1           a
+key2         one
+data1   -1.67214
+data2    1.14581
+Name: 0, dtype: object
 ```
