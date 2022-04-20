@@ -96,12 +96,50 @@ Name: 0, dtype: object
 __面试题：__`创建类时，类方法中的self是什么？`  
 `self代表类的实例，是通过类创建的实例，在定义这个类时这个实例我们还没有创建，self表示的是我们使用类时创建的那个实例`  
 __面试题：__`类属性和实例属性区别？`  
-`实例属性在每个实例之间相互独立，而类属性是统一的，如果在类上绑定属性，则所有该类的实例都可以访问这个属性，并且都访问的是同一个东西`
+`实例属性在每个实例之间相互独立，而类属性是统一的，如果在类上绑定属性，则所有该类的实例都可以访问这个属性，并且都访问的是同一个东西`  
+类的方法是表明这个类用是来做什么，在类的内部，使用`def`关键字来定义方法，与一般函数定义不同，类方法第一个参数必须为self, self代表的是类的实例，其他参数和普通函数完全一样。  
+类还有其他特殊方法又称魔术方法(magic method)，例如`__getitem__`，在定义类时如果希望能按照键取类的值，则需要定义__getitem__方法，实例可以直接返回__getitem__方法执行的结果，当对象是序列时键是整数。当对象是映射时（字典），键可以是任意类型，且特殊方法和init一样不需要手动调用
 ```Python
 class Circle(object):
+  pi=3.14 #类属性
   def __init__(self,R):
-    self.r=R
+    self.r=R #这里r是实例属性
+  def get_area(self):
+    return self.r**2 * Circle.pi  # 通过实例修改pi的值对面积无影响，这个pi为类属性的值
+    return self.r**2 * self.pi    # 通过实例修改pi的值对面积我们圆的面积就会改变
+  def __getitem__(self,key):
+    return "😄" #不管键值多少都会返回笑脸
+    return key+self.R #根据键值返回
 
+circle1 = Circle(1)
+circle2 = Circle(2)
+print('----未修改前-----')
+print('pi=\t', Circle.pi)
+print('circle1.pi=\t', circle1.pi)  #  3.14
+print('circle2.pi=\t', circle2.pi)  #  3.14
+print('----通过类名修改后-----')
+Circle.pi = 3.14159  # 通过类名修改类属性，所有实例的类属性被改变
+print('pi=\t', Circle.pi)   #  3.14159
+print('circle1.pi=\t', circle1.pi)   #  3.14159
+print('circle2.pi=\t', circle2.pi)   #  3.14159
+print('----通过circle1实例名修改后-----')
+circle1.pi=3.14111   # 实际上这里是给circle1创建了一个与类属性同名的实例属性
+print('pi=\t', Circle.pi)     #  3.14159
+print('circle1.pi=\t', circle1.pi)  # 实例属性的访问优先级比类属性高，所以是3.14111   
+print('circle2.pi=\t', circle2.pi)  #  3.14159
+print('----删除circle1实例属性pi-----')
+del circle1.pi
+print('pi=\t', Circle.pi) #3.14159
+print('circle1.pi=\t', circle1.pi)  #删除实例属性之后就可以访问类属性了，所以是3.14159
+print('circle2.pi=\t', circle2.pi)  #3.14159
+#所以千万不要在实例上修改类属性，它实际上并没有修改类属性，而是给实例绑定了一个实例属性覆盖了优先级低的类属性
+print(circle1[3]) #返回😄或4
 ```
-
-### 10.
+### 10.view
+view是Pytorch中的函数方法，类似于numpy中的reshape方法，就是调整矩阵/张量的形状，注意view前后的元素个数一定要相同！！！可以设定view其中一个参数为-1，代表动态调整这个维度上的元素个数，以保证元素的总数不变
+```Python
+import torch
+v1 = torch.range(1, 16)
+v2 = v1.view(4, 4)  #将一个1*16的张量改为4*4，前后都是16
+V2 = V1.view(-1,4)  #与上一个语句结果相同
+```
