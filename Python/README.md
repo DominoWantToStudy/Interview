@@ -60,6 +60,7 @@ print(df.apply(lambda x: x.iloc[2],axis=1))
 3    2.080478
 4   -0.388349
 ```
+
 | key1 | key2 | data1 | data2
 ---- | ----- | ------ |
 0	a	one	-1.672143	1.145812
