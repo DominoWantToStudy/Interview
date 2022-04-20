@@ -52,7 +52,7 @@ df = pd.DataFrame({'key1':list('aabba'),
                   'data1': np.random.randn(5),
                   'data2': np.random.randn(5)})
 print(df)
-  key1  key2  data1 data2
+   key1 key2  data1 data2
 0	a	one	-1.672143	1.145812
 1	a	two	-0.075998	0.072943
 2	b	one	0.933935	0.618680
