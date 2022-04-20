@@ -52,10 +52,16 @@ df = pd.DataFrame({'key1':list('aabba'),
                   'data1': np.random.randn(5),
                   'data2': np.random.randn(5)})
 print(df)
- key1 key2 data1 data2
+  key1  key2  data1 data2
 0	a	one	-1.672143	1.145812
 1	a	two	-0.075998	0.072943
 2	b	one	0.933935	0.618680
 3	b	two	2.080478	-0.664071
 4	a	one	-0.388349	1.283912
+print(df.apply(lambda x: x.iloc[2],axis=1))
+0   -1.672143
+1   -0.075998
+2    0.933935
+3    2.080478
+4   -0.388349
 ```
