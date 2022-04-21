@@ -105,7 +105,7 @@ print(input.size()) #torch.Size([32, 256, 35])
 ```
 ### 9.nn.MaxPool1d
 用于对输入维度为(N,C,L)的张量，在L维上进行max pooling操作  
-`torch.nn.MaxPool1d(kernel_size, stride=None, padding=0, dilation=1, return_indices=False, ceil_mode=False)`
+`torch.nn.MaxPool1d(kernel_size, stride=None, padding=0, dilation=1, return_indices=False, ceil_mode=False)`  
 参数解释如下:  
 __kernel_size__：池化窗口大小  
 __stride__：步长，Default value is kernel_size  
@@ -122,4 +122,11 @@ input = torch.randn(20, 16, 50)
 output = m(input)
 print(input.size())   #torch.Size([20, 16, 50])
 print(output.size())  #torch.Size([20, 16, 24])
+```
+### 10.nn.Dropout
+Dropout就是在前向传播的时候，让某个神经元的激活值以一定的概率p停止工作，这样可以使模型泛化性更强，因为它不会太依赖某些局部的特征，如下图：
+
+![](https://img-blog.csdn.net/20180619185225799?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3Byb2dyYW1fZGV2ZWxvcGVy/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+```Python
+torch.nn.Dropout(0.5) #指该层的神经元在每次迭代训练时会随机有50%的可能性被丢弃(失活)而不参与训练，一般神经元较多的层设置的失活概率值要比神经元较少的层大
 ```
