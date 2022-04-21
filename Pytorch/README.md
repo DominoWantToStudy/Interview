@@ -84,6 +84,7 @@ __dilation(int or tuple, optional)__：卷积核元素之间的间距
 __groups(int, optional)__：从输入通道到输出通道的阻塞连接数  
 __bias(bool, optional)__：如果bias=True则添加偏置  
 输出结果的最后一维的维度为：  
+
 ![](https://latex.codecogs.com/svg.image?d_{out}=floor(\frac{d_{in}&plus;2\times&space;padding-kernelsize}{stride})&plus;1)
 ```Python
 import torch.nn as nn
@@ -113,6 +114,7 @@ __dilation__：控制扩张的参数
 __return_indices__：if True, will return the max indices along with the outputs  
 __ceil_mode__：when True, 会用向上取整而不是向下取整来计算output的shape  
 输出的L维大小为：  
+
 ![](https://latex.codecogs.com/svg.image?L_{out}=floor(\frac{L_{in}&plus;2\times&space;padding-dilation\times&space;(kernelsize-1)-1}{stride})&plus;1)
 ```Python
 m = nn.MaxPool1d(3, stride=2)
