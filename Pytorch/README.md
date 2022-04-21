@@ -78,8 +78,19 @@ output = BN(input)
 __in_channels(int)__:输入信号的通道，即输入向量的维度  
 __out_channels(int)__:卷积产生的通道，即输出向量的维度  
 __kernel_size(int or tuple)__:卷积核的尺寸，卷积核的实际大小为kernel_size*in_channels  
-__stride(int or tuple, optional)__:卷积步长
-__padding(int or tuple, optional)__:输入的每条边填0的层数
-__dilation(int or tuple, optional)__:卷积核元素之间的间距
-__groups(int, optional)__:从输入通道到输出通道的阻塞连接数
-__bias(bool, optional)__:如果bias=True则添加偏置
+__stride(int or tuple, optional)__:卷积步长  
+__padding(int or tuple, optional)__:输入的每条边填0的层数  
+__dilation(int or tuple, optional)__:卷积核元素之间的间距  
+__groups(int, optional)__:从输入通道到输出通道的阻塞连接数  
+__bias(bool, optional)__:如果bias=True则添加偏置  
+
+
+
+### 8.permute
+将tensor中不同维上的维度换位
+```Python
+input=torch.randn(32,35,256)
+print(input.size()) #torch.Size([32, 35, 256])
+input=input.permute(0,2,1)
+print(input.size()) #torch.Size([32, 256, 35])
+```
