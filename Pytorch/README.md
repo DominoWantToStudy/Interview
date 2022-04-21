@@ -110,7 +110,7 @@ __padding__:padding的值，默认就是不padding
 __dilation__:控制扩张的参数  
 __return_indices__:if True, will return the max indices along with the outputs  
 __ceil_mode__:when True, 会用向上取整而不是向下取整来计算output的shape  
-输出的L维大小=(L+*padding-dilation*(kernel_size-1)-1)/stride+1
+输出的L维大小=(L+ 2*padding-dilation * (kernel_size-1)-1)/stride+1
 ```Python
 m = nn.MaxPool1d(3, stride=2)
 input = torch.randn(20, 16, 50)
