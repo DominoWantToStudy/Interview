@@ -72,20 +72,26 @@ output = BN(input)
 #先定义一个归一化函数BN，需要归一化的维度是100，随后初始化一个矩阵input维度为20*100，最后用BN对矩阵input进行归一化
 ```
 ### 7.nn.Conv1d
-用于设置1维卷积层，定义如下：  
+用于设置1维卷积层：  
 `class torch.nn.Conv1d(in_channels, out_channels, kernel_size, stride=1, padding=0, dilation=1, groups=1, bias=True)`  
 参数解释如下：  
 __in_channels(int)__:输入信号的通道，即输入向量的维度  
 __out_channels(int)__:卷积产生的通道，即输出向量的维度  
 __kernel_size(int or tuple)__:卷积核的尺寸，卷积核的实际大小为kernel_size*in_channels  
 __stride(int or tuple, optional)__:卷积步长  
-__padding(int or tuple, optional)__:输入的每条边填0的层数  
+__padding(int or tuple, optional)__:输入的每条边填0的层数，如果要卷积操作前后向量维度不缩小则padding=(kernel_size-1)/2，或者直接padding="same"
 __dilation(int or tuple, optional)__:卷积核元素之间的间距  
 __groups(int, optional)__:从输入通道到输出通道的阻塞连接数  
 __bias(bool, optional)__:如果bias=True则添加偏置  
-
-
-
+```Python
+import torch.nn as nn
+conv1=nn.Conv1d(in_channels=256,out_channels=100,kernel_size=2,stride=2,padding=0)
+input=torch.randn(32,35,256)  #batch_size=32,句长=35,词向量长度=256
+input=input.permute(0,2,1)    #交换第二维和第一维的维度
+print(input.size()) #torch.Size([32, 256, 35])
+out=conv1(input)    #卷积层是将256维的特征压缩成100维，在最后一维上进行卷积操作，所以输出结果的最后一维的维度d=floor((35+2*padding-kernel_size)/stride)+1=floor((35-2)/2)+1
+print(out.size())   #torch.Size([32, 100, 17])
+```
 ### 8.permute
 将tensor中不同维上的维度换位
 ```Python
@@ -93,4 +99,22 @@ input=torch.randn(32,35,256)
 print(input.size()) #torch.Size([32, 35, 256])
 input=input.permute(0,2,1)
 print(input.size()) #torch.Size([32, 256, 35])
+```
+### 9.nn.MaxPool1d
+用于对输入维度为(N,C,L)的张量，在L维上进行max pooling操作  
+`torch.nn.MaxPool1d(kernel_size, stride=None, padding=0, dilation=1, return_indices=False, ceil_mode=False)`
+参数解释如下:  
+__kernel_size__:池化窗口大小  
+__stride__:步长，Default value is kernel_size  
+__padding__:padding的值，默认就是不padding  
+__dilation__:控制扩张的参数  
+__return_indices__:if True, will return the max indices along with the outputs  
+__ceil_mode__:when True, 会用向上取整而不是向下取整来计算output的shape  
+输出的L维大小=(L+*padding-dilation*(kernel_size-1)-1)/stride+1
+```Python
+m = nn.MaxPool1d(3, stride=2)
+input = torch.randn(20, 16, 50)
+output = m(input)
+print(input.size())   #torch.Size([20, 16, 50])
+print(output.size())  #torch.Size([20, 16, 24])
 ```
