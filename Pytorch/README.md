@@ -51,7 +51,7 @@ print(model_2)
 import torch as t
 import torch.nn as nn
 
-# in_features由输入张量的形状决定，out_features则决定了输出张量的形状
+# in_features由输入张量的形状决定，out_features则决定了输出张量的形状，也即全连接层的神经元个数
 connected_layer = nn.Linear(in_features = 64*64*3, out_features = 1)
 
 # 假定输入的图像形状为[64,64,3]
@@ -63,3 +63,23 @@ print(input.shape)
 output = connected_layer(input) # 调用全连接层
 print(output.shape)
 ```
+### 6.nn.BatchNorm1d
+用于定义一个归一化函数方法，重要参数是num_features，表示需要归一化的维度，函数的input可以是二维或者三维。当input的维度为(N,C)时，BN将对C维归一化；当input的维度为(N,C,L)或(N,C,L)时，归一化的维度同样为C维，BatchNorm1d会找到第一个维度为C的那一维执行归一化
+```Python
+BN = nn.BatchNorm1d(100)
+input = torch.randn(20, 100)
+output = BN(input)
+#先定义一个归一化函数BN，需要归一化的维度是100，随后初始化一个矩阵input维度为20*100，最后用BN对矩阵input进行归一化
+```
+### 7.nn.Conv1d
+用于设置1维卷积层，定义如下：  
+`class torch.nn.Conv1d(in_channels, out_channels, kernel_size, stride=1, padding=0, dilation=1, groups=1, bias=True)`  
+参数解释如下：  
+__in_channels(int)__:输入信号的通道，即输入向量的维度  
+__out_channels(int)__:卷积产生的通道，即输出向量的维度  
+__kernel_size(int or tuple)__:卷积核的尺寸，卷积核的实际大小为kernel_size*in_channels  
+__stride(int or tuple, optional)__:卷积步长
+__padding(int or tuple, optional)__:输入的每条边填0的层数
+__dilation(int or tuple, optional)__:卷积核元素之间的间距
+__groups(int, optional)__:从输入通道到输出通道的阻塞连接数
+__bias(bool, optional)__:如果bias=True则添加偏置
