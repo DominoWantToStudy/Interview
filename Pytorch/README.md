@@ -83,8 +83,8 @@ __padding(int or tuple, optional)__：输入的每条边填0的层数，如果�
 __dilation(int or tuple, optional)__：卷积核元素之间的间距  
 __groups(int, optional)__：从输入通道到输出通道的阻塞连接数  
 __bias(bool, optional)__：如果bias=True则添加偏置  
-输出结果的最后一维的维度d=floor((35+2*padding-kernel_size)/stride)+1=floor((35-2)/2)+1
-https://latex.codecogs.com/svg.image?d_{out}=floor(\frac{d_{in}&plus;2\times&space;padding-kernelsize}{stride})&plus;1
+输出结果的最后一维的维度d=floor((35+2*padding-kernel_size)/stride)+1=floor((35-2)/2)+1  
+![](https://latex.codecogs.com/svg.image?d_{out}=floor(\frac{d_{in}&plus;2\times&space;padding-kernelsize}{stride})&plus;1)
 ```Python
 import torch.nn as nn
 conv1=nn.Conv1d(in_channels=256,out_channels=100,kernel_size=2,stride=2,padding=0)
