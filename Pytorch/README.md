@@ -77,13 +77,13 @@ output = BN(input)
 参数解释如下：  
 __in_channels(int)__：输入信号的通道，即输入向量的维度  
 __out_channels(int)__：卷积产生的通道，即输出向量的维度  
-__kernel_size(int or tuple)__：卷积核的尺寸，卷积核的实际大小为kernel_size*in_channels  
+__kernel_size(int or tuple)__：卷积核的尺寸，卷积核的实际大小为kernel_size * in_channels  
 __stride(int or tuple, optional)__：卷积步长  
-__padding(int or tuple, optional)__：输入的每条边填0的层数，如果要卷积操作前后向量维度不缩小则padding=(kernel_size-1)/2，或者直接padding="same"
+__padding(int or tuple, optional)__：输入的每条边填0的层数，如果要卷积操作前后向量维度不缩小则padding=(kernel_size-1)/2，或者直接padding="same"  
 __dilation(int or tuple, optional)__：卷积核元素之间的间距  
 __groups(int, optional)__：从输入通道到输出通道的阻塞连接数  
 __bias(bool, optional)__：如果bias=True则添加偏置  
-输出结果的最后一维的维度d=floor((35+2*padding-kernel_size)/stride)+1=floor((35-2)/2)+1  
+输出结果的最后一维的维度
 ![](https://latex.codecogs.com/svg.image?d_{out}=floor(\frac{d_{in}&plus;2\times&space;padding-kernelsize}{stride})&plus;1)
 ```Python
 import torch.nn as nn
