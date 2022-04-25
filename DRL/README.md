@@ -33,5 +33,5 @@ RNN深度较大时可能造成梯度爆炸和梯度消失，二者原因相同�
 ### 6.LSTM
 LSTM网络示意图如下图所示：
 
-![]()
+![](https://github.com/DominoWantToStudy/Interview/blob/master/pic/LSTM.PNG)
 在LSTM中共有三个基于门的计算机制：遗忘门(Forget Gate)、输入门(Input Gate)、输出门(Output Gate)。遗忘门根据新的输入来决定单元状态中是否有部分信息应该被遗忘；输入门决定哪些输入信息应该被加入单元状态中，目的是长期存储这部分信息并取代被遗忘的信息；输出门根据最新的单元状态，决定LSTM循环单元的输出。
